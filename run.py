@@ -7,7 +7,7 @@ create_db_tables()
 
 while True:
     registers = fetch_generator_data()
-
+    
     voltage = Voltage(tuple(registers[6:12]))
 
     power = Power(tuple([registers[12]/10,
@@ -27,10 +27,10 @@ while True:
                           registers[35],
                           registers[33]]))
     
-    history = History(tuple([registers[65],registers[71:74]]))
-
-    insert_record(voltage.insert_query)
-    insert_record(power.insert_query)
-    insert_record(engine.insert_query)
-    insert_record(history.insert_query)
+    history = History(tuple([registers[65],registers[71],registers[72],registers[73]]))
+    
+    insert_record(voltage)
+    insert_record(power)
+    insert_record(engine)
+    insert_record(history)
     time.sleep(10)

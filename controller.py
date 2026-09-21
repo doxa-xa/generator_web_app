@@ -1,6 +1,9 @@
 import socket
 import struct
 import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 def calculate_crc(data):
     crc = 0xFFFF
@@ -15,13 +18,13 @@ def calculate_crc(data):
     return struct.pack('<H', crc)
 
 def fetch_generator_data():
-    request = struct.pack('>BBHH', os.environ['SLAVE_ID'], 3, 0, 100)
+    request = struct.pack('>BBHH', int(os.environ['SLAVE_ID']), 3, 0, 100)
     request += calculate_crc(request)
     
     try:
         s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         s.settimeout(2.5) # Малко под 3 секунди, за да не увисва уеб сървърът
-        s.connect((os.environ['IP'], os.environ['PORT']))
+        s.connect((os.environ['IP'], int(os.environ['PORT'])))
         s.sendall(request)
         response = s.recv(1024)
         s.close()
@@ -30,7 +33,6 @@ def fetch_generator_data():
             payload = response[3:-2] 
             count = len(payload) // 2 
             registers = list(struct.unpack('>' + 'H'*count, payload))
-            print(registers)
             return registers
         else:
             return []

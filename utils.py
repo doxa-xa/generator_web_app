@@ -1,11 +1,11 @@
 class Voltage: 
     def __init__(self,data):
-        self.vol_h_l1 = data[0]
-        self.vol_h_l2 = data[1]
-        self.vol_h_l3 = data[2]
-        self.vol_l_l1 = data[3]
-        self.vol_l_l2 = data[4]
-        self.vol_l_l3 = data[5]
+        self.vol_h_l1 = int(data[0])
+        self.vol_h_l2 = int(data[1])
+        self.vol_h_l3 = int(data[2])
+        self.vol_l_l1 = int(data[3])
+        self.vol_l_l2 = int(data[4])
+        self.vol_l_l3 = int(data[5])
 
     @property
     def insert_query(self):

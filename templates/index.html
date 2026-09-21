@@ -7,34 +7,34 @@
 </head>
 <body>
     <h2>GENPOWER Remote Generator monitoring tool</h2>
-    <p class="runtime">Number of Starts: {{ data['history'][0] }}</p>
-    <p class="runtime">Current Runtime: {{ data['history'][1] }} hours : {{ data['history'][2] }} minutes : {{ data['history'][3] }} seconds</p>
+    <p class="runtime">Number of Starts: {{ data['history'][1] }}</p>
+    <p class="runtime">Current Runtime: {{ data['history'][2] }} hours : {{ data['history'][3] }} minutes : {{ data['history'][4] }} seconds</p>
     <div class="voltage">
         <h3 class="label">Voltage</h3><img class="icon" src="../static/voltage_icon.png" alt="voltage icon">
         <ul>
-            <li><span class="key">Gens (L-L)</span> <span class="value">{{ data['voltage'][0:3] }}</span> <span class="type">V</span></li>
-            <li><span class="key">Gens (L-N)</span> <span class="value">{{ data['voltage'][3:7] }}</span> <span class="type">V</span></li>
-            <li><span class="key">Frequency</span> <span class="value">{{ data['power'][8] }}</span> <span class="type">Hz</span></li>
-            <li><span class="key">Phase</span> <span class="value">{{ data['power'][3:6] }}</span> <span class="type">°</span></li>
+            <li><span class="key">Gens (L-L)</span> <span class="value">{{ data['voltage'][1:4] }}</span> <span class="type">V</span></li>
+            <li><span class="key">Gens (L-N)</span> <span class="value">{{ data['voltage'][4:7] }}</span> <span class="type">V</span></li>
+            <li><span class="key">Frequency</span> <span class="value">{{ data['power'][9] }}</span> <span class="type">Hz</span></li>
+            <li><span class="key">Phase</span> <span class="value">{{ data['power'][4:7] }}</span> <span class="type">°</span></li>
         </ul>
     </div>
     <div class="Power">
         <h3 class="label">Power</h3><img class="icon" src="../static/power_icon.png" alt="power icon">
         <ul>
-            <li><span class="key">Current</span> <span class="value">{{ data['power'][0:3] }}</span> <span class="type">A</span></li>
-            <li><span class="key">Power</span> <span class="value">{{ data['power'][9] }}</span> <span class="type">kW</span></li>
-            <li><span class="key">PF</span> <span class="value">{{ data['power'][6] }}</span></li>
-            <li><span class="key">PS</span> <span class="value">{{ data['power'][7] }}</span> <span class="type">kVA</span></li>
+            <li><span class="key">Current</span> <span class="value">{{ data['power'][1:4] }}</span> <span class="type">A</span></li>
+            <li><span class="key">Power</span> <span class="value">{{ data['power'][10] }}</span> <span class="type">kW</span></li>
+            <li><span class="key">PF</span> <span class="value">{{ data['power'][7] }}</span></li>
+            <li><span class="key">PS</span> <span class="value">{{ data['power'][8] }}</span> <span class="type">kVA</span></li>
         </ul>
     </div>
     <div class="Engine">
         <h3 class="label">Engine</h3><img class="icon" src="../static/engine_icon.png" alt="engine icon">
         <ul>
-            <li><span class="key">Speed</span> <span class="value">{{ data['engine'][0] }}</span> <span class="type">RPM</span></li>
-            <li><span class="key">Battery</span> <span class="value">{{ data['engine'][1] }}</span> <span class="type">V</span></li>
-            <li><span class="key">Charge</span> <span class="value">{{ data['engine'][2] }}</span> <span class="type">V</span></li>
-            <li><span class="key">Temperature</span> <span class="value">{{ data['engine'][4] }}</span> <span class="type">°C</span></li>
-            <li><span class="key">Oil Pressure</span> <span class="value">{{ data['engine'][3] }}</span> <span class="type">kPa</span></li>
+            <li><span class="key">Speed</span> <span class="value">{{ data['engine'][1] }}</span> <span class="type">RPM</span></li>
+            <li><span class="key">Battery</span> <span class="value">{{ data['engine'][2] }}</span> <span class="type">V</span></li>
+            <li><span class="key">Charge</span> <span class="value">{{ data['engine'][3] }}</span> <span class="type">V</span></li>
+            <li><span class="key">Temperature</span> <span class="value">{{ data['engine'][5] }}</span> <span class="type">°C</span></li>
+            <li><span class="key">Oil Pressure</span> <span class="value">{{ data['engine'][4] }}</span> <span class="type">kPa</span></li>
         </ul>
     </div>
 </body>
