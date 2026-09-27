@@ -1,6 +1,7 @@
 import socket
 import struct
 import os
+import datetime
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -18,6 +19,7 @@ def calculate_crc(data):
     return struct.pack('<H', crc)
 
 def fetch_generator_data():
+    now = datetime.datetime.now().strftime("%d.%m.%Y - %H:%M:%S")
     request = struct.pack('>BBHH', int(os.environ['SLAVE_ID']), 3, 0, 100)
     request += calculate_crc(request)
     
@@ -39,7 +41,12 @@ def fetch_generator_data():
             
     except socket.timeout:
         print("Contoller connection error: Socket Timeout!")
+        with open("controller_log.txt","a") as log:
+            log.write(f"{now} | Socket Timeout")
+            log.write("\n")
         return []
     except Exception as e:
         print(f"An exeption occured: {e}")
+        with open("controller_log.txt","a") as log:
+            log.write(f"{now} | An Exception occured: {e}")
         return []
