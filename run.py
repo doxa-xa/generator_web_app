@@ -3,6 +3,7 @@ from utils import Voltage, Power, Engine, History
 from db import create_db_tables, insert_record
 import datetime
 import time
+from bot import send_notification
 
 create_db_tables()
 now = datetime.datetime.now().strftime("%d.%m.%Y - %H:%M:S")
@@ -10,6 +11,7 @@ while True:
     registers = fetch_generator_data()
     if len(registers) == 0:
         for attempt in range(1,4):
+            send_notification(f"Опитвам автоматично да възстановя връзката с контролера... Опит:{attempt}")
             with open("run_log.txt","a") as log:
                 time.sleep(10)
                 log.write(f"{now} | Retrying attempt {attempt}...")

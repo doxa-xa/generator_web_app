@@ -2,6 +2,7 @@ import socket
 import struct
 import os
 import datetime
+from bot import send_notification
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -41,12 +42,14 @@ def fetch_generator_data():
             
     except socket.timeout:
         print("Contoller connection error: Socket Timeout!")
+        send_notification("Връзката с контролера на агрегата е прекъсната!")
         with open("controller_log.txt","a") as log:
             log.write(f"{now} | Socket Timeout")
             log.write("\n")
         return []
     except Exception as e:
         print(f"An exeption occured: {e}")
+        send_notification(f"Възникна грешка при връзката с контролера на агрегата: {e}")
         with open("controller_log.txt","a") as log:
             log.write(f"{now} | An Exception occured: {e}")
         return []
