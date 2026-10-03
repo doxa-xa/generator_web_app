@@ -32,13 +32,23 @@ while True:
                         registers[19]/10,
                         registers[17]/10,
                         registers[18]/10]))
-    
+    if registers[15] <= 0.5:
+        send_notification(f"Внимание! cos(φ) е: {registers[15]/100} - нисък коефициент на мощност!") 
     engine = Engine(tuple([registers[39],
                           registers[37]/10,
                           registers[38]/10,
                           registers[35],
                           registers[33]]))
-    
+    if registers[39] <= 1750:
+        send_notification(f"Внимание! Ниски обороти: {registers[39]} rpm!")
+    if registers[37]/10 <= 24 or registers[37]/10 >= 30:
+        send_notification(f"Внимание! Абнормално напрежение на акумулатора: {registers[37]/10} V!")
+    if registers[35] <= 350:
+        send_notification(f"Внимание! Ниско налягане на маслото: {registers[35]} kPa!")
+    if registers[33] >= 91:
+        send_notification(f"Внимание! Висока температура на двигателя: {registers[33]} °C!")
+    if registers[33] <= 65:
+        send_notification(f"Внимание! Ниска температура на двигателя: {registers[33]} °C!")
     history = History(tuple([registers[65],registers[71],registers[72],registers[73]]))
     
     insert_record(voltage)
