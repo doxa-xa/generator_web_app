@@ -47,7 +47,7 @@ while True:
         send_notification(f"Внимание! Ниско налягане на маслото: {registers[35]} kPa!")
     if registers[33] >= 91:
         send_notification(f"Внимание! Висока температура на двигателя: {registers[33]} °C!")
-    if registers[33] <= 65:
+    if registers[33] <= 45:
         send_notification(f"Внимание! Ниска температура на двигателя: {registers[33]} °C!")
     history = History(tuple([registers[65],registers[71],registers[72],registers[73]]))
     
