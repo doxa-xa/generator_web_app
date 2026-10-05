@@ -4,7 +4,7 @@ import requests
 import time
 
 load_dotenv()
-CHAT_IDS = [8955213165,8649603585]
+CHAT_IDS = [8955213165,8649603585,5653908863]
 def send_notification(message:str):
     URL = f'https://api.telegram.org/bot{os.environ["TELEGRAM_BOT_TOKEN"]}/sendMessage'
     for chat_id in CHAT_IDS:
