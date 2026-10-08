@@ -4,7 +4,7 @@ import requests
 import time
 
 load_dotenv()
-#CHAT_IDS = [8955213165,8649603585,5653908863]
+CHAT_IDS = [8955213165,8649603585,5653908863]
 
 def check_for_new_members():
     URL = f'https://api.telegram.org/bot{os.environ["TELEGRAM_BOT_TOKEN"]}/getUpdates'
@@ -37,9 +37,8 @@ def check_for_new_members():
 
 
 def send_notification(message:str):
-    chat_ids = check_for_new_members()
     URL = f'https://api.telegram.org/bot{os.environ["TELEGRAM_BOT_TOKEN"]}/sendMessage'
-    for chat_id in chat_ids:
+    for chat_id in CHAT_IDS:
         try:
             payload = {
                 "chat_id":chat_id,
