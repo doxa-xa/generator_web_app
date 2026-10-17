@@ -1,0 +1,15 @@
+[Unit]
+Description=Generator Data Collector Worker
+After=network.target
+
+[Service]
+User=www-data
+Group=www-data
+WorkinDirectory=/var/www/generator_web_app
+Environment="PATH=/var/www/generator_web_app/bin"
+ExecStart=/var/www/generator_web_app/bin/python run.py
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

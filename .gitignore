@@ -1,1 +1,7 @@
 .env
+__pycache__/
+bin/
+lib/
+controller_log.txt
+run_log.txt
+pyvenv.cfg

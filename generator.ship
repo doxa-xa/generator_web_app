@@ -1,0 +1,13 @@
+server {
+    listen 80;
+    server_name generator.local ://generator.ship;
+
+    location / {
+        include proxy_params;
+        proxy_pass http://unix:/var/www/generator_web_app/generator_web_app.sock;
+    }
+
+    location /static/ {
+        alias /var/www/generator_web_app/static/;
+    }
+}
