@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>Generator Charts</title>
+</head>
+<body class="plots-body">
+    
+    <h2>{{ data['title'] }} History</h2>
+    <p class="runtime">Shows the power data for the last 2 hours (10s intervals)</p>
+    
+    <div class="Power chart-card">
+        <div class="chart-container">
+            <img src="data:image/png;base64,{{ plot_url[0] }}" alt="plot figure">
+        </div>
+    </div>
+    <div class="Power chart-card">
+        <div class="chart-container">
+            <img src="data:image/png;base64,{{ plot_url[1] }}" alt="plot figure">
+        </div>
+    </div>
+
+</body>
+</html>

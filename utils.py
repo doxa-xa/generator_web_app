@@ -1,3 +1,8 @@
+import base64
+from io import BytesIO
+from matplotlib.figure import Figure
+import matplotlib.dates as mdates
+
 class Voltage: 
     def __init__(self,data):
         self.vol_h_l1 = int(data[0])
@@ -49,3 +54,30 @@ class History:
     def insert_query(self):
         return f"""INSERT INTO history (num_starts, run_hrs,run_min,run_sec)
         VALUES ({self.num_starts},{self.run_hrs},{self.run_min},{self.run_sec})"""
+
+def create_plot(time_axis, unit_axis,label,units):
+    fig = Figure(figsize=(10,5),dpi= 100)
+    ax = fig.subplots()
+
+    x = time_axis
+    y = unit_axis
+
+    ax.plot(x,y,marker='o',markersize=3,color='purple',linestyle='-',linewidth=1)
+    ax.set_title(f'History {label} [{units}]', fontsize=14, pad=15)
+    ax.set_xlabel('Time', fontsize=12)
+    ax.set_ylabel(units, fontsize=12)
+    ax.xaxis.set_major_locator(mdates.MinuteLocator(interval=15))
+    ax.xaxis.set_major_formatter(mdates.DateFormatter("%H:%M"))
+
+    fig.autofmt_xdate(rotation=45)
+
+    ax.grid(True, linestyle='--',alpha=0.5)
+
+    fig.tight_layout()
+
+    buffer = BytesIO()
+    fig.savefig(buffer, format='png')
+    buffer.seek(0)
+    
+    plot_url = base64.b64encode(buffer.getvalue()).decode('utf-8')
+    return plot_url

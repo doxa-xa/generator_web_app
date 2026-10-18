@@ -14,7 +14,10 @@ body {
     margin: 0 auto;
     line-height: 1.5;
 }
-
+.chart-container {
+    margin: 20px auto;
+    width: 600px;
+}
 /* --- Заглавие и Спецификации --- */
 h2 {
     color: #ffffff;
@@ -141,7 +144,82 @@ li:last-child {
     text-align: left;
 }
 
-/* Специфичен цвят за Engine параметрите за визуален баланс */
 .Engine .type {
     color: #38bdf8; /* Светло синьо за двигателя */
 }
+body.plots-body {
+    display: flex;
+    flex-direction: column;
+    max-width: 1050px; /* Ограничаваме малко ширината, за да изглежда по-добре */
+}
+
+/* Оптимизация на картата, в която стои графиката */
+.chart-card {
+    width: 100%;
+    padding: 1rem;
+    display: block;
+    margin-top: 1rem;
+}
+
+/* Пренаписване на стария .chart-container, за да бъде адаптивен */
+.chart-container {
+    width: 100% !important; /* Преодолява фиксираните 600px */
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+}
+
+/* Прави самото изображение разтегливо спрямо екрана */
+.chart-container img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 4px;
+}
+/* --- Контейнер за история в долния десен ъгъл на картата --- */
+.history-container {
+    position: absolute;
+    bottom: 0.25rem;
+    right: 1.5rem;
+}
+
+/* Изгражда подреждането на текста и иконата на един ред */
+.history-link {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem; /* Разстояние между текста и иконата */
+    text-decoration: none;
+    transition: transform 0.2s ease;
+}
+
+/* Стил за текста "History" */
+.history-label {
+    color: #94a3b8; /* Дискретно сиво, съвпадащо с параметрите (.key) */
+    font-size: 0.85rem;
+    font-weight: 600;
+    transition: color 0.2s ease;
+}
+
+/* Стил за самата малка икона */
+.history-icon {
+    width: 32px;
+    height: 22px;
+    opacity: 0.5;
+    filter: invert(1);
+    transition: opacity 0.2s ease, filter 0.2s ease;
+}
+
+/* --- Ефекти при посочване (Hover) --- */
+.history-link:hover {
+    transform: translateY(-1px); /* Леко повдигане */
+}
+
+/* Текстът и иконата светват заедно в кехлибарено при посочване */
+.history-link:hover .history-label {
+    color: #f59e0b; 
+}
+
+.history-link:hover .history-icon {
+    opacity: 1;
+    filter: invert(62%) sepia(85%) saturate(1243%) hue-rotate(1deg) brightness(103%) contrast(96%); /* Променя иконата в кехлибарен цвят */
+}
+
