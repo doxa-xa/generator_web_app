@@ -1,6 +1,9 @@
 from flask import Flask, url_for, render_template
 from db import get_records, PowerORM, EngineORM
 from utils import create_plot
+from analysis import read_db, outliers
+import pandas as pd
+
 
 app = Flask(__name__)
 
@@ -26,15 +29,21 @@ def power_history():
 def engine_history():
     eng = get_records('engine',720)
     engine = EngineORM(eng)
+    min_speed = read_db(f"select id,speed,timestamp from engine where timestamp > datetime((select max(timestamp) from engine),'-28 days') and speed < :min_speed",{'min_speed':1750})
+    speed_month = read_db(f"select id,speed,timestamp from engine where timestamp > datetime((select max(timestamp) from engine), '-28 days')")
+    df = outliers(min_speed,speed_month)
+    time_series = pd.to_datetime(df['timestamp'],unit='ns')
+    plot_url3 = create_plot(time_series,df['speed'].values.tolist(),'Engine Speed','rpm',timeframe=True)
     plot_url1 = create_plot(engine.time_stamp,engine.temperature,engine.headers['labels'][0],engine.headers['units'][0])
     plot_url2 = create_plot(engine.time_stamp,engine.oil_pressure,engine.headers['labels'][1],engine.headers['units'][1])
-    return render_template('plots.html',data=engine.headers,plot_url=[plot_url1,plot_url2])
+    return render_template('plots.html',data=engine.headers,plot_url=[plot_url1,plot_url2,plot_url3])
 
 @app.route('/debug')
 def debug():
-    pw = get_records('power',720)
-    power = PowerORM(pw)
-    return render_template('debug.html',power=power.power)
+    min_speed = read_db(f"select id,speed,timestamp from engine where timestamp > datetime((select max(timestamp) from engine),'-28 days') and speed < :min_speed",{'min_speed':1750})
+    speed_month = read_db(f"select id,speed,timestamp from engine where timestamp > datetime((select max(timestamp) from engine), '-28 days')")
+    df = outliers(min_speed,speed_month)
+    return render_template('debug.html',power={'timestamp':df['timestamp'].values.tolist(),'speed':df['speed'].values.tolist()})
 
 if __name__ == '__main__':
     

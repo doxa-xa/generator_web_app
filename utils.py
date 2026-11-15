@@ -55,7 +55,7 @@ class History:
         return f"""INSERT INTO history (num_starts, run_hrs,run_min,run_sec)
         VALUES ({self.num_starts},{self.run_hrs},{self.run_min},{self.run_sec})"""
 
-def create_plot(time_axis, unit_axis,label,units):
+def create_plot(time_axis, unit_axis,label,units,timeframe=False):
     fig = Figure(figsize=(10,5),dpi= 100)
     ax = fig.subplots()
 
@@ -66,8 +66,13 @@ def create_plot(time_axis, unit_axis,label,units):
     ax.set_title(f'History {label} [{units}]', fontsize=14, pad=15)
     ax.set_xlabel('Time', fontsize=12)
     ax.set_ylabel(units, fontsize=12)
-    ax.xaxis.set_major_locator(mdates.MinuteLocator(interval=15))
-    ax.xaxis.set_major_formatter(mdates.DateFormatter("%H:%M"))
+    if timeframe:
+        locator = mdates.AutoDateLocator(minticks=5,maxticks=10)
+        ax.xaxis.set_major_locator(locator)
+        ax.xaxis.set_major_formatter(mdates.DateFormatter("%d-%m %H:%M"))
+    else:
+        ax.xaxis.set_major_locator(mdates.MinuteLocator(interval=15))
+        ax.xaxis.set_major_formatter(mdates.DateFormatter("%H:%M"))
 
     fig.autofmt_xdate(rotation=45)
 
